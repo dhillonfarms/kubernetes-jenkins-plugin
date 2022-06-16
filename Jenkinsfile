@@ -21,6 +21,7 @@ pipeline {
         }
     }
     stage('Create deployment file'){
+      agent any
       steps {
         script {
           def text = readFile file: "deployment.yaml"
