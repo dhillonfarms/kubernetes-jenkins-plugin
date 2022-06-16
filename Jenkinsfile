@@ -1,5 +1,17 @@
 pipeline {
+  
   agent none
+  
+  environment {
+    DEPLOYMENT_NAME = "nginx-deploy"
+    NAMESPACE_NAME = "dev"
+    APP_LABEL_VALUE = "nginx-server"
+    REPLICA_COUNT = "2"
+    CONTAINER_NAME = "nginx"
+    CONTAINER_IMAGE = "nginx:1.14.2"
+    CONTAINER_PORT = "80"
+  }
+  
   stages {
     stage('Run any command') {
         agent any
@@ -7,6 +19,17 @@ pipeline {
           sh 'pwd'
           sh 'ls -ltr *'  
         }
+    }
+    stage('Create deployment file'){
+      def text = readFile file: "deployment.yaml"
+      text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
+      text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
+      text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
+      text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
+      text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
+      text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
+      text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
+      writeFile file: "deployment.yaml", text: text
     }
     stage('Run K8s command') {
       agent {
@@ -33,10 +56,11 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'ls -ltr *'
-        sh 'kubectl get pods -n dev'
-        sh 'kubectl apply -f nginx.yaml'
-        sh 'sleep 60'
-        sh 'kubectl get pods -n dev'
+        sh 'cat deployment.yaml'
+//         sh 'kubectl get pods -n dev'
+//         sh 'kubectl apply -f deployment.yaml'
+//         sh 'sleep 60'
+//         sh 'kubectl get pods -n dev'
         // container('k8scli') {
         //   sh 'ls'
         // }
