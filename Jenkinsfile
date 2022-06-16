@@ -4,7 +4,7 @@ pipeline {
   
   environment {
     DEPLOYMENT_NAME = "nginx-deploy"
-    NAMESPACE_NAME = "dev"
+    NAMESPACE_NAME = "prod"
     APP_LABEL_VALUE = "nginx-server"
     REPLICA_COUNT = "2"
     CONTAINER_NAME = "nginx"
@@ -63,10 +63,10 @@ pipeline {
           writeFile file: "deployment.yaml", text: text
         }
         sh 'cat deployment.yaml'
-        sh 'kubectl get pods -n dev'
+        sh 'kubectl get pods -n ${NAMESPACE_NAME}'
         sh 'kubectl apply -f deployment.yaml'
         sh 'sleep 30'
-        sh 'kubectl get pods -n dev'
+        sh 'kubectl get pods -n ${NAMESPACE_NAME}'
       }
     }
   }
