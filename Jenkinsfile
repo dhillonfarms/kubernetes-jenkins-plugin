@@ -23,17 +23,6 @@ pipeline {
     stage('Create deployment file'){
       agent any
       steps {
-        script {
-          def text = readFile file: "deployment.yaml"
-          text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
-          text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
-          text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
-          text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
-          text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
-          text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
-          text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
-          writeFile file: "deployment.yaml", text: text
-        }
         sh 'cat deployment.yaml'
       }
     }
@@ -62,6 +51,17 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'ls -ltr *'
+        script {
+          def text = readFile file: "deployment.yaml"
+          text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
+          text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
+          text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
+          text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
+          text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
+          text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
+          text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
+          writeFile file: "deployment.yaml", text: text
+        }
         sh 'cat deployment.yaml'
 //         sh 'kubectl get pods -n dev'
 //         sh 'kubectl apply -f deployment.yaml'
