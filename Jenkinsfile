@@ -63,13 +63,10 @@ pipeline {
           writeFile file: "deployment.yaml", text: text
         }
         sh 'cat deployment.yaml'
-//         sh 'kubectl get pods -n dev'
-//         sh 'kubectl apply -f deployment.yaml'
-//         sh 'sleep 60'
-//         sh 'kubectl get pods -n dev'
-        // container('k8scli') {
-        //   sh 'ls'
-        // }
+        sh 'kubectl get pods -n dev'
+        sh 'kubectl apply -f deployment.yaml'
+        sh 'sleep 30'
+        sh 'kubectl get pods -n dev'
       }
     }
   }
