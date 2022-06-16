@@ -3,7 +3,7 @@ pipeline {
   agent none
   
   environment {
-    JENKINS_CLOUD_NAME = "eksctl-june1-2"
+    JENKINS_CLOUD_NAME = "eksctl-june1-3"
     DEPLOYMENT_NAME = "nginx-deploy"
     NAMESPACE_NAME = "dev"
     APP_LABEL_VALUE = "nginx-server"
