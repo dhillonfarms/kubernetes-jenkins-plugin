@@ -39,7 +39,7 @@ pipeline {
               labels:
                 some-label: some-label-value
             spec:
-              serviceAccountName: /"${JENKINS_SERVICE_ACCOUNT}/"
+              serviceAccountName: \"${JENKINS_SERVICE_ACCOUNT}\"
               automountServiceAccountToken: true
               containers:
               - name: jnlp
