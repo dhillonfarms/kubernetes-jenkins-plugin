@@ -3,8 +3,9 @@ pipeline {
   agent none
   
   environment {
+    JENKINS_CLOUD_NAME = "eksctl-june1-2"
     DEPLOYMENT_NAME = "nginx-deploy"
-    NAMESPACE_NAME = "prod"
+    NAMESPACE_NAME = "dev"
     APP_LABEL_VALUE = "nginx-server"
     REPLICA_COUNT = "2"
     CONTAINER_NAME = "nginx"
@@ -29,7 +30,7 @@ pipeline {
     stage('Run K8s command') {
       agent {
         kubernetes {
-          cloud "eksctl-june1-2"
+          cloud "${JENKINS_CLOUD_NAME}"
           yaml '''
             apiVersion: v1
             kind: Pod
