@@ -22,15 +22,17 @@ pipeline {
     }
     stage('Create deployment file'){
       steps {
-        def text = readFile file: "deployment.yaml"
-        text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
-        text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
-        text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
-        text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
-        text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
-        text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
-        text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
-        writeFile file: "deployment.yaml", text: text
+        script {
+          def text = readFile file: "deployment.yaml"
+          text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
+          text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
+          text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
+          text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
+          text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
+          text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
+          text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
+          writeFile file: "deployment.yaml", text: text
+        }
       }
     }
     stage('Run K8s command') {
