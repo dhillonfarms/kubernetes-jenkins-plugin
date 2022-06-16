@@ -40,11 +40,11 @@ pipeline {
               labels:
                 some-label: some-label-value
             spec:
-              serviceAccountName: "${JENKINS_SERVICE_ACCOUNT}"
+              serviceAccountName: ${JENKINS_SERVICE_ACCOUNT}
               automountServiceAccountToken: true
               containers:
               - name: jnlp
-                image: "${JENKINS_AGENT_CUSTOM_DOCKER_IMAGE}"
+                image: ${JENKINS_AGENT_CUSTOM_DOCKER_IMAGE}
                 command:
                 - /usr/local/bin/jenkins-agent
                 tty: true
