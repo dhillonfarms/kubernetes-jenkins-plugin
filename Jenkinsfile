@@ -34,6 +34,7 @@ pipeline {
           text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
           writeFile file: "deployment.yaml", text: text
         }
+        sh 'cat deployment.yaml'
       }
     }
     stage('Run K8s command') {
