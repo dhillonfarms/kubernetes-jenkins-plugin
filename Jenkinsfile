@@ -3,6 +3,8 @@ pipeline {
   agent none
   
   environment {
+    JENKINS_SERVICE_ACCOUNT = "jenkins-dev-serviceaccount"
+    JENKINS_AGENT_CUSTOM_DOCKER_IMAGE = "dhillonfarms80/jenkins-inboundagent-kubectl:latest"
     JENKINS_CLOUD_NAME = "eksctl-june1-3"
     DEPLOYMENT_NAME = "nginx-deploy"
     NAMESPACE_NAME = "dev"
@@ -38,11 +40,11 @@ pipeline {
               labels:
                 some-label: some-label-value
             spec:
-              serviceAccountName: jenkins-dev-serviceaccount
+              serviceAccountName: "${JENKINS_SERVICE_ACCOUNT}"
               automountServiceAccountToken: true
               containers:
               - name: jnlp
-                image: dhillonfarms80/jenkins-inboundagent-kubectl:latest
+                image: "${JENKINS_AGENT_CUSTOM_DOCKER_IMAGE}"
                 command:
                 - /usr/local/bin/jenkins-agent
                 tty: true
