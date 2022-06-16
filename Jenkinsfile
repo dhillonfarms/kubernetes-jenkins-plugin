@@ -34,6 +34,9 @@ pipeline {
         sh 'pwd'
         sh 'ls -ltr *'
         sh 'kubectl get pods -n dev'
+        sh 'kubectl apply -f nginx.yaml'
+        sh 'sleep 60'
+        sh 'kubectl get pods -n dev'
         // container('k8scli') {
         //   sh 'ls'
         // }
