@@ -4,7 +4,8 @@ pipeline {
     stage('Run any command') {
         agent any
         steps {
-          sh 'ls -ltr /home'  
+          sh 'pwd'
+          sh 'ls -ltr *'  
         }
     }
     stage('Run K8s command') {
@@ -30,6 +31,8 @@ pipeline {
             }
         }
       steps {
+        sh 'pwd'
+        sh 'ls -ltr *'
         sh 'kubectl get pods -n dev'
         // container('k8scli') {
         //   sh 'ls'
