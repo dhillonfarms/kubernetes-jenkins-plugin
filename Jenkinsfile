@@ -9,7 +9,7 @@ pipeline {
     APP_LABEL_VALUE = "kk-server"
     REPLICA_COUNT = "2"
     CONTAINER_NAME = "kk"
-    CONTAINER_IMAGE = "kkaur/jenkins-kubectl"
+    CONTAINER_IMAGE = "kjkaur/spring-boot-docker:latest"
     CONTAINER_PORT = "8080"
   }
   
