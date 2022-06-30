@@ -4,13 +4,13 @@ pipeline {
   
   environment {
     JENKINS_CLOUD_NAME = "eksctl-june1-3"
-    DEPLOYMENT_NAME = "nginx-deploy"
+    DEPLOYMENT_NAME = "kk-deploy"
     NAMESPACE_NAME = "dev"
-    APP_LABEL_VALUE = "nginx-server"
+    APP_LABEL_VALUE = "kk-server"
     REPLICA_COUNT = "2"
-    CONTAINER_NAME = "nginx"
-    CONTAINER_IMAGE = "nginx:1.14.2"
-    CONTAINER_PORT = "80"
+    CONTAINER_NAME = "kk"
+    CONTAINER_IMAGE = "kkaur/jenkins-kubectl"
+    CONTAINER_PORT = "8080"
   }
   
   stages {
