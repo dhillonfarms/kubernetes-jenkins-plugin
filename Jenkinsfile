@@ -42,7 +42,7 @@ pipeline {
               automountServiceAccountToken: true
               containers:
               - name: jnlp
-                image: dhillonfarms80/jenkins-inboundagent-kubectl:latest
+                image: kjkaur/jenkins-kubectl:latest
                 command:
                 - /usr/local/bin/jenkins-agent
                 tty: true
@@ -50,24 +50,24 @@ pipeline {
             }
         }
       steps {
-        sh 'pwd'
-        sh 'ls -ltr *'
-        script {
-          def text = readFile file: "deployment.yaml"
-          text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
-          text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
-          text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
-          text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
-          text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
-          text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
-          text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
-          writeFile file: "deployment.yaml", text: text
-        }
-        sh 'cat deployment.yaml'
-        sh 'kubectl get pods -n ${NAMESPACE_NAME}'
-        sh 'kubectl apply -f deployment.yaml'
-        sh 'sleep 30'
-        sh 'kubectl get pods -n ${NAMESPACE_NAME}'
+        sh 'kubectl get nodes'
+//         sh 'ls -ltr *'
+//         script {
+//           def text = readFile file: "deployment.yaml"
+//           text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
+//           text = text.replaceAll("NAMESPACE_NAME", "${NAMESPACE_NAME}")
+//           text = text.replaceAll("APP_LABEL_VALUE", "${APP_LABEL_VALUE}")
+//           text = text.replaceAll("REPLICA_COUNT", "${REPLICA_COUNT}")
+//           text = text.replaceAll("CONTAINER_NAME", "${CONTAINER_NAME}")
+//           text = text.replaceAll("CONTAINER_IMAGE", "${CONTAINER_IMAGE}")
+//           text = text.replaceAll("CONTAINER_PORT", "${CONTAINER_PORT}")
+//           writeFile file: "deployment.yaml", text: text
+//         }
+//         sh 'cat deployment.yaml'
+//         sh 'kubectl get pods -n ${NAMESPACE_NAME}'
+//         sh 'kubectl apply -f deployment.yaml'
+//         sh 'sleep 30'
+//         sh 'kubectl get pods -n ${NAMESPACE_NAME}'
       }
     }
   }
