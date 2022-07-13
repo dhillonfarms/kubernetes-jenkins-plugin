@@ -44,7 +44,7 @@ pipeline {
               - name: jnlp
                 image: kjkaur/jenkins-kubectl:latest
                 command:
-                - /usr/local/bin/jenkins-agent
+                - sleep 600
                 tty: true
             '''
             }
