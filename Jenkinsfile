@@ -43,8 +43,8 @@ pipeline {
               containers:
               - name: jnlp
                 image: kjkaur/jenkins-kubectl:latest
-                command: [ "/bin/bash", "-c", "--" ]
-                args: [ "while true; do sleep 300; done;" ]
+                command: 
+                - /usr/local/bin/jenkins-agent
                 tty: true
             '''
             }
