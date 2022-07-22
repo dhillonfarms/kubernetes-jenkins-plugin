@@ -50,8 +50,6 @@ pipeline {
             }
         }
       steps {
-        sh 'kubectl get nodes'
-        sh 'ls -ltr *'
         script {
           def text = readFile file: "deployment.yaml"
           text = text.replaceAll("DEPLOYMENT_NAME", "${DEPLOYMENT_NAME}")
